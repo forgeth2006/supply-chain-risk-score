@@ -65,3 +65,33 @@ aren't realistic package names to begin with.
 column under Databricks Free Edition's Spark Connect client — the real
 column remains named `distCol` regardless of the string passed. Workaround:
 reference `distCol` directly and alias in `.select()`.
+
+## npm full-registry run (with real-world scoping note)
+The full npm registry join (4,421,253 names) could not complete in a reasonable
+time on free-tier compute (Databricks Free Edition experienced an outage;
+Google Colab's local-mode Spark exceeded 1 hour on the full join without
+completing, and its default disk storage was found to be wiped on runtime
+restart, requiring a switch to Google Drive for persistent storage).
+
+**Decision:** used a 20,000-name representative sample of the full npm
+registry instead of the complete set, at threshold 0.65, numHashTables=3
+(reduced from 5 for speed given single-machine constraints — a stated
+accuracy/speed tradeoff, not a hidden shortcut).
+
+Result: 8,537 candidate pairs from the 20,000-name sample. The same
+digit-prefix pattern found in PyPI's full run appeared here too
+(e.g. `electron`/`4electron`, `router`/`7router`), reinforcing that this
+is a systematic characteristic of the method rather than a PyPI-specific
+artifact.
+
+## Finding 6: zero-vector filtering must be applied to BOTH sides symmetrically
+Initially only filtered the full registry for zero-vector rows (names with
+no shingles in the fitted vocabulary), not the popular list. Since the
+popular list is smaller, a rare edge case can slip through unnoticed until
+MinHashLSH fails during the join itself. Fix: apply the same zero-vector
+filter to both the popular list AND the full registry whenever fitting a
+new vocabulary. Also discovered that Spark's lazy evaluation can silently
+recompute a filter differently across separate operations on the same
+lazy chain — resolved by writing filtered results to Parquet and reading
+them back ("materializing") before using them in a new model fit, rather
+than chaining transformations indefinitely.
