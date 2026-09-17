@@ -216,6 +216,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
-
 # Week 3 dependency API cache
 graph_db/dep_cache/
+
+*.parquet.zip
