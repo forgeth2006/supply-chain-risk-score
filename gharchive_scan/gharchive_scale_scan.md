@@ -15,10 +15,25 @@ file lists (see gharchive_scope.md).
 - Scanned 12,061,354 events, 11,555,061 pushes (95.8%), in ~135 s.
 
 ## Results
-71 matching repos; the top 30 by pushes were reviewed, the rest have <= 1 push.
-Dominated by `elasticsearch` (elastic/elasticsearch plus likely forks), `9router`
-(many accounts, 1-3 pushes each, one pusher each), and common words (`anima`,
-`telemetry`). No match could be classified as malicious from this data.
+71 matching repos, but only 5 of the 142 candidate names matched any repo at all.
+The full list is in `data/gharchive_matches.csv` (columns: short, repo, pushes,
+days_active, pushers).
+
+| Candidate name | Repos | Notes |
+|---|---|---|
+| elasticsearch | 43 | `elastic/elasticsearch` has 20 pushes by 13 pushers over 6 days; the other 42 have 1-3 pushes and a single pusher each, which fits forks of the real project (not verified, the fields we extracted do not say whether a repo is a fork) |
+| 9router | 17 | 1-3 pushes each, one pusher per repo |
+| telemetry | 7 | includes organisation-owned repos (`golang/telemetry`, `nuxt/telemetry`, `cap-js/telemetry`) |
+| anima | 3 | 1-3 pushes |
+| webdavclient | 1 | 1 push |
+
+No match could be classified as malicious from this data. `elasticsearch` and
+`telemetry` are common, legitimate names, so those matches are Signal 1 false
+positives. `9router` is the one cluster not obviously explained: many accounts each
+hold a repo with that name, which looks like one project being forked or cloned.
+Open question: `zcuss/9router` was also the example repo for the `0router` Code
+Search hits in signal3_evidence_design.md, so the evidence for that candidate may
+come from the same project.
 
 ## Limitations
 - Matches by repo name only, so recall is low by design.
