@@ -99,15 +99,18 @@ than chaining transformations indefinitely.
 ## Attempted restoration of full-scale npm run (Week 7)
 Attempted to rerun npm's Signal 1 at full scale (4,515,551 names) on Kaggle
 Notebooks after Databricks/Colab constraints blocked this in Week 4.
-Hit consistent OutOfMemoryError failures during the similarity join step
-across multiple configurations (default settings, explicit 20GB/10GB/6GB
-driver memory, reduced shuffle partitions, reduced file partition size,
-and a 1.5M-row subset) — all failed at the join/shuffle stage specifically,
-not at data loading. This points to a hard memory ceiling on the specific
-free container allocated, not a tunable configuration issue.
+The similarity join failed repeatedly with OutOfMemoryError across several
+configurations (default settings, 20 GB / 10 GB / 6 GB driver memory set after
+rebuilding the session, reduced shuffle partitions, smaller file partitions,
+and a 1.5M-row subset). Data loading and counting worked; the failures were at
+the join/shuffle stage.
 
-**Decision:** retained the original 20,000-name representative sample
-(Week 4) as the final npm Signal 1 result. Full-scale npm processing
-would require paid-tier compute with guaranteed larger memory allocation
-— noted as a concrete, costed path for future work rather than pursued
-further within the free-tier constraints of this project.
+**Cause: uncertain.** It may be a real memory limit on the free container. It may
+also be that our memory settings never took effect: they were applied after
+stopping and rebuilding Spark inside an already-running notebook, which can keep
+the original heap size. A later scan started with the setting in the first cell
+reported an 8.6 GB heap, so a fresh start does apply it. This was not re-tested
+on the npm join.
+
+**Decision:** retained the original 20,000-name representative sample (Week 4) as
+the npm Signal 1 result. A full-scale run is listed as unresolved future work.
