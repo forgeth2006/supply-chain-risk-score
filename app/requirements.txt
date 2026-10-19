@@ -1,0 +1,7 @@
+flask
+pandas
+numpy
+scipy
+requests
+# optional, only for the real Spark button on page 1 (also needs Java 8/11/17 installed):
+# pyspark
