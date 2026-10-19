@@ -1,0 +1,151 @@
+rank,ecosystem,popular_name,candidate_name,score,tier,signals_used,jaccard_distance,s1,popular_dependents,s2,github_hit_count,s3,s3_note,example_repo,candidate_listed_malicious
+1,npm,express,5-express,0.7735,HIGH,3,0.25,0.75,93237,0.8736,459.0,0.7198,,patika-hepsiburada-react-bootcamp/sources,False
+2,pypi,cryptography,cryptograph,0.7518,HIGH,2,0.0909,0.9091,3396,0.6207,515072.0,,"common word, hit count ignored",offu/WeRoBot,False
+3,pypi,manim,anima,0.7447,HIGH,3,0.0,1.0,33,0.2692,2528.0,0.92,,ContextLab/hypertools,False
+4,npm,express,3.express,0.7239,HIGH,3,0.25,0.75,93237,0.8736,179.0,0.6097,,LazeBear/jr-fullstack-notes-14.5,False
+5,pypi,pexpect,expect,0.7161,HIGH,2,0.0,1.0,533,0.4795,279552.0,,"common word, hit count ignored",nathanlopez/Stitch,False
+6,pypi,django-tables2,django-tables,0.6947,HIGH,3,0.0769,0.9231,33,0.2692,1410.0,0.8514,,momosecurity/aswan,False
+7,pypi,opentelemetry-instrumentation-urllib3,opentelemetry-instrumentation-urllib,0.6864,HIGH,3,0.0312,0.9688,17,0.2207,1280.0,0.8401,,Azure/azure-sdk-for-python,False
+8,pypi,pytest-lazy-fixtures,pytest-lazy-fixture,0.6742,HIGH,3,0.0,1.0,10,0.1831,1084.0,0.8206,,jina-ai/serve,False
+9,npm,react-router,07-react-router,0.6717,HIGH,3,0.1538,0.8462,10588,0.7075,108.0,0.5508,,mabdullahjs/SMIT-BATCH-11,False
+10,npm,type,0type,0.6689,HIGH,3,0.25,0.75,231,0.4158,854.0,0.7926,,babel/babel,False
+11,npm,typescript,05-typescript,0.6636,HIGH,3,0.25,0.75,488056,1.0,27.0,0.3912,,Tech-Educators/software-dev-24,False
+12,npm,typescript,08-typescript,0.6508,HIGH,3,0.25,0.75,488056,1.0,21.0,0.3629,,angelogluz/Youtube-codes,False
+13,pypi,flake8-commas,flake8-comma,0.6504,HIGH,3,0.0833,0.9167,94,0.3477,402.0,0.7043,,iw4p/proxy-scraper,False
+14,npm,passport,1-passport,0.6444,HIGH,3,0.2222,0.7778,4444,0.6413,130.0,0.5724,,belev/HackBulgariaCourses,False
+15,npm,table,2table,0.6307,HIGH,3,0.2,0.8,1816,0.573,133.0,0.575,,pnp/sp-dev-fx-webparts,False
+16,npm,router,9router,0.6259,HIGH,3,0.1667,0.8333,256,0.4237,243.0,0.6454,,decolua/9router,False
+17,pypi,gender-guesser,gender-guess,0.6254,HIGH,3,0.0833,0.9167,10,0.1831,638.0,0.7584,,pybites/challenges,False
+18,npm,react-router,08-react-router,0.62,HIGH,3,0.1538,0.8462,10588,0.7075,40.0,0.436,,jorgegarba/codigo-virtual-8,False
+19,pypi,progressbar33,progressbar3,0.6081,HIGH,3,0.0833,0.9167,11,0.1897,443.0,0.7157,,nyaadevs/nyaa,False
+20,npm,serve,0server,0.5999,MEDIUM,3,0.2,0.8,5061,0.6512,47.0,0.4545,,Hombre2014/node-js-tutorial,False
+21,npm,react-router,09-react-router,0.5999,MEDIUM,3,0.1538,0.8462,10588,0.7075,27.0,0.3912,,dexter-ifti/100Xdevs,False
+22,pypi,flask-openapi3,flask-openapi,0.592,MEDIUM,3,0.0769,0.9231,7,0.1588,377.0,0.6968,,splunk/attack_range,False
+23,npm,conf,2conf,0.5917,MEDIUM,3,0.25,0.75,1594,0.563,85.0,0.523,,microsoft/FluidFramework,False
+24,pypi,llama-index-workflows,llama-index-workflow,0.5903,MEDIUM,3,0.05,0.95,0,0.0,794.0,0.7841,,realpython/materials,False
+25,pypi,webdavclient3,webdavclient,0.5851,MEDIUM,3,0.0833,0.9167,17,0.2207,240.0,0.644,,organicmaps/organicmaps,False
+26,npm,electron,4electron,0.5779,MEDIUM,3,0.125,0.875,5167,0.6528,21.0,0.3629,,KBchulan/LearnNode,True
+27,npm,color,3color,0.5768,MEDIUM,3,0.2,0.8,4088,0.6349,33.0,0.414,,cristianstaicu/SecBench.js,False
+28,npm,webpack,2webpack2,0.5717,MEDIUM,3,0.25,0.75,216244,0.9379,6.0,0.2285,,QingWei-Li/2webpack2,False
+29,pypi,nvidia-ml-py,nvidia-ml-py3,0.5647,MEDIUM,2,0.0833,0.9167,34,0.2714,20864.0,,"common word, hit count ignored",rail-berkeley/softlearning,False
+30,pypi,etelemetry,telemetry,0.5644,MEDIUM,2,0.0,1.0,13,0.2015,124672.0,,"common word, hit count ignored",kedro-org/vscode-kedro,False
+31,npm,clipboard,2-clipboard,0.5616,MEDIUM,3,0.2,0.8,3292,0.6184,27.0,0.3912,,benwinding/svg-2-clipboard,False
+32,npm,base,3base,0.5584,MEDIUM,3,0.25,0.75,1040,0.5305,54.0,0.4705,,mvila/serverless-plugin-scripts,False
+33,pypi,pydantic-evals,pydantic-eval,0.5537,MEDIUM,3,0.0769,0.9231,0,0.0,450.0,0.7175,,galaxyproject/galaxy,False
+34,pypi,django-bootstrap3,django-bootstrap,0.5509,MEDIUM,2,0.0625,0.9375,19,0.2287,12128.0,,"common word, hit count ignored",OpenAgricultureFoundation/openag-device-software,False
+35,npm,colors,8colors,0.5466,MEDIUM,3,0.1667,0.8333,29121,0.7848,6.0,0.2285,,jmdisuanco/pinipig,False
+36,npm,router,7router,0.5462,MEDIUM,3,0.1667,0.8333,256,0.4237,53.0,0.4683,,hyyejin/newfile,False
+37,pypi,comm,commm,0.541,MEDIUM,3,0.0,1.0,110,0.3596,31.0,0.4069,,Program-Trace-Optimisation/PTO,False
+38,pypi,elasticsearch,elasticsearch6,0.5408,MEDIUM,3,0.0769,0.9231,450,0.4666,24.0,0.3779,,bytedance/fedlearner,False
+39,pypi,django-enumfields,django-enumfield,0.5393,MEDIUM,3,0.0625,0.9375,3,0.1058,175.0,0.6071,,developmentseed/api.work.vote,False
+40,pypi,django-bootstrap5,django-bootstrap,0.5389,MEDIUM,2,0.0625,0.9375,14,0.2067,12128.0,,"common word, hit count ignored",OpenAgricultureFoundation/openag-device-software,False
+41,pypi,aiohttp-swagger3,aiohttp-swagger,0.5381,MEDIUM,3,0.0667,0.9333,7,0.1588,129.0,0.5715,,craftbeerpi/craftbeerpi4,False
+42,npm,react-router,27-react-router,0.5337,MEDIUM,3,0.1538,0.8462,10588,0.7075,7.0,0.2441,,hyein310/SeSAC_Dobong1_Web,False
+43,npm,html-webpack-plugin,1-webpack-plugin,0.5327,MEDIUM,3,0.2632,0.7368,65055,0.8461,5.0,0.2104,,wojciech-lasota/npm-peer-solver,False
+44,npm,clipboardy,2-clipboard,0.5296,MEDIUM,3,0.2727,0.7273,1803,0.5724,27.0,0.3912,,benwinding/svg-2-clipboard,False
+45,npm,jquery,4jquery,0.528,MEDIUM,3,0.1667,0.8333,28173,0.7823,4.0,0.189,,KSDeng/web-testing-2019fall,False
+46,npm,flat,2flat,0.5276,MEDIUM,3,0.25,0.75,2250,0.5893,21.0,0.3629,,James-Yu/LaTeX-Workshop,False
+47,pypi,lxml,lxmlx,0.5257,MEDIUM,3,0.0,1.0,4127,0.6356,4.0,0.189,,normcontrol/normcontrol-Document-Parser,False
+48,npm,classnames,1-classname,0.5243,MEDIUM,3,0.2727,0.7273,35031,0.7989,6.0,0.2285,,SaltyAom/one-classname,False
+49,pypi,django-pglocks,django-pglock,0.5193,MEDIUM,3,0.0769,0.9231,3,0.1058,128.0,0.5706,,netbox-community/netbox,False
+50,npm,eslint-plugin-react,@0y0/eslint-plugin-react,0.5161,MEDIUM,3,0.2273,0.7727,105111,0.8828,2.0,0.129,,o0y0o/f2e-dev-toolkit,False
+51,npm,utf8,2utf8,0.5159,MEDIUM,3,0.25,0.75,1105,0.5351,23.0,0.3731,,RT-Thread/packages,False
+52,npm,babel-preset-react,@0y0/babel-preset-react,0.5114,MEDIUM,3,0.2381,0.7619,49787,0.8257,3.0,0.1628,,o0y0o/f2e-dev-toolkit,False
+53,npm,copy-webpack-plugin,1-webpack-plugin,0.511,MEDIUM,3,0.2632,0.7368,25162,0.7736,5.0,0.2104,,wojciech-lasota/npm-peer-solver,False
+54,pypi,case-converter,case-convert,0.5056,MEDIUM,3,0.0833,0.9167,20,0.2324,49.0,0.4593,,dong50252409/cfg_exporter,False
+55,pypi,wheel,wheeel,0.4991,MEDIUM,3,0.0,1.0,4197,0.6369,2.0,0.129,,ayyman-e/TSDPE,False
+56,npm,router,1router,0.4881,MEDIUM,3,0.1667,0.8333,256,0.4237,17.0,0.3393,,ConradZhangcong/nodejs,False
+57,npm,electron,3electron,0.4878,MEDIUM,3,0.125,0.875,5167,0.6528,3.0,0.1628,,kujirahand/nadesiko3electron,True
+58,npm,router,3router,0.4851,MEDIUM,3,0.1667,0.8333,256,0.4237,16.0,0.3326,,saltycrane/react-chained-modals-comparison,False
+59,npm,diff,2diff,0.4811,MEDIUM,3,0.25,0.75,4153,0.6361,6.0,0.2285,,KBchulan/LearnNode,False
+60,npm,router,8router,0.4785,MEDIUM,3,0.1667,0.8333,256,0.4237,14.0,0.3179,,AuncelFan/98TrackRater,False
+61,npm,cacache,0cache,0.4783,MEDIUM,3,0.2,0.8,750,0.5055,10.0,0.2815,,stimulsoft/Samples-Reports.JS-for-Node.js,False
+62,npm,pnp-webpack-plugin,1-webpack-plugin,0.4767,MEDIUM,3,0.2222,0.7778,3609,0.6254,5.0,0.2104,,wojciech-lasota/npm-peer-solver,False
+63,npm,style-loader,7-style-loader,0.472,MEDIUM,3,0.1538,0.8462,86729,0.8681,0.0,0.0,no files found,,False
+64,npm,router,0router,0.4709,MEDIUM,3,0.1667,0.8333,256,0.4237,12.0,0.3011,,zcuss/9router,False
+65,pypi,configargparse,configargparser,0.451,MEDIUM,3,0.0769,0.9231,123,0.368,7.0,0.2441,,TailinZhou/ManGO_SOO,False
+66,npm,form-data,6-form-data,0.448,MEDIUM,3,0.2,0.8,10194,0.7047,1.0,0.0814,,theresa-de-ocampo/nodejs-craig,False
+67,pypi,opentelemetry-instrumentation-openai-agents,opentelemetry-instrumentation-openai-agents-v2,0.4472,MEDIUM,3,0.0833,0.9167,0,0.0,61.0,0.4846,,open-telemetry/opentelemetry-python-contrib,False
+68,npm,batch,1batch,0.4419,MEDIUM,3,0.2,0.8,618,0.4908,5.0,0.2104,,mapmeld/1batch,False
+69,npm,@vue/eslint-config-typescript,@1f8/eslint-config-typescript,0.428,MEDIUM,3,0.2581,0.7419,8028,0.6864,1.0,0.0814,,1f8/eslint-nodejs-typescript,False
+70,npm,touch,1touch,0.4256,MEDIUM,3,0.2,0.8,1501,0.5584,2.0,0.129,,dhruva-nu/f1application,False
+71,npm,element-ui,3t-element-ui,0.4233,MEDIUM,3,0.1818,0.8182,14048,0.7291,0.0,0.0,no files found,,False
+72,pypi,ciscoconfparse,ciscoconfparse2,0.4208,MEDIUM,3,0.0769,0.9231,12,0.1958,11.0,0.2917,,Tes3awy/cisco-config-auditor,False
+73,npm,vue-style-loader,7-style-loader,0.42,MEDIUM,3,0.2,0.8,14833,0.7333,0.0,0.0,no files found,,False
+74,npm,electron,3lectron,0.42,MEDIUM,3,0.25,0.75,5167,0.6528,1.0,0.0814,,hvvivek/d3lectron,True
+75,pypi,elasticsearch9,elasticsearch,0.4196,MEDIUM,2,0.0769,0.9231,0,0.0,22208.0,,"common word, hit count ignored",certtools/intelmq,False
+76,pypi,nvidia-cuda-runtime-cu11,nvidia-cuda-runtime-cu115,0.4111,MEDIUM,3,0.0476,0.9524,77,0.3326,3.0,0.1628,,aseidelo/wiki_generator,False
+77,pypi,manim,imanim,0.404,MEDIUM,3,0.0,1.0,33,0.2692,3.0,0.1628,,Petlja/StemSimulacijeOS-files,False
+78,npm,eslint-config-react-app,@0xaio/eslint-config-react-app,0.4035,MEDIUM,3,0.25,0.75,12447,0.7199,0.0,0.0,no files found,,False
+79,npm,eslint-config-react-app,@1o1w1/eslint-config-react-app,0.4035,MEDIUM,3,0.25,0.75,12447,0.7199,0.0,0.0,no files found,,False
+80,npm,text-extensions,3d-extensions,0.4,MEDIUM,3,0.25,0.75,437,0.4644,3.0,0.1628,,jamiller619/filejam,False
+81,npm,http-server,1117http-server,0.3989,LOW,3,0.25,0.75,10203,0.7047,0.0,0.0,no files found,,False
+82,npm,babel-preset-react-app,@1o1w1/babel-preset-react-app,0.3974,LOW,3,0.2692,0.7308,11773,0.7156,0.0,0.0,no files found,,False
+83,npm,babel-preset-react-app,@0xaio/babel-preset-react-app,0.3974,LOW,3,0.2692,0.7308,11773,0.7156,0.0,0.0,no files found,,False
+84,npm,babel-plugin-named-asset-import,@1o1w1/babel-plugin-named-asset-import,0.3961,LOW,3,0.1892,0.8108,4652,0.6448,0.0,0.0,no files found,,False
+85,npm,babel-plugin-styled-components,@0x706b/babel-plugin-styled-components,0.3955,LOW,3,0.2162,0.7838,6071,0.6651,0.0,0.0,no files found,,False
+86,npm,flux,0flux,0.3935,LOW,3,0.25,0.75,639,0.4933,2.0,0.129,,reissbaker/zeroflux,False
+87,pypi,pytest-html,pytest-htmlx,0.3885,LOW,3,0.0909,0.9091,230,0.4155,1.0,0.0814,,lrvdnagasai/resume_builder_automation,False
+88,npm,readable-stream,4meme-readable-stream,0.385,LOW,3,0.25,0.75,5545,0.6582,0.0,0.0,no files found,,True
+89,npm,socks,5socks,0.3837,LOW,3,0.2,0.8,613,0.4901,1.0,0.0814,,35socks/masteringtool,False
+90,npm,electron,4lectron,0.3833,LOW,3,0.25,0.75,5167,0.6528,0.0,0.0,no files found,,True
+91,pypi,babel,bababel,0.3813,LOW,3,0.0,1.0,308,0.4377,0.0,0.0,no files found,,False
+92,npm,chart.js,17chart.js,0.381,LOW,3,0.2222,0.7778,3446,0.6219,0.0,0.0,no files found,,False
+93,pypi,tensorboard,tensorboardY,0.3808,LOW,3,0.0909,0.9091,814,0.5118,0.0,0.0,no files found,,False
+94,pypi,sphinx-design,sphinx-design2,0.3806,LOW,3,0.0769,0.9231,54,0.3059,2.0,0.129,,sldriedler/mltk,False
+95,npm,serialport,6qserialport,0.3744,LOW,3,0.1818,0.8182,1660,0.5661,0.0,0.0,no files found,,False
+96,npm,args,9args,0.3722,LOW,3,0.25,0.75,641,0.4935,1.0,0.0814,,convertigo/c8oprj-lib-verdaccio,True
+97,pypi,requests-html,requests-htmlc,0.3722,LOW,3,0.0769,0.9231,96,0.3493,1.0,0.0814,,Sergeileduc/barmanbot,False
+98,npm,dd-trace,0-dd-trace,0.3708,LOW,3,0.2222,0.7778,174,0.3943,2.0,0.129,,mckaysalisbury/-dd-trace-init-first-production,False
+99,npm,interpret,0ainterpreter,0.366,LOW,3,0.2,0.8,1406,0.5535,0.0,0.0,no files found,,False
+100,pypi,fastapi-filter,fastapi-filters,0.3641,LOW,3,0.0714,0.9286,1,0.0529,8.0,0.258,,JonBunator/Enterr,False
+101,npm,slick-carousel,1x-slick-carousel,0.3628,LOW,3,0.1875,0.8125,1064,0.5322,0.0,0.0,no files found,,False
+102,npm,is-unicode-supported,@1n/is-unicode-supported,0.361,LOW,3,0.1739,0.8261,848,0.5149,0.0,0.0,no files found,,False
+103,npm,web3-utils,3f-web3-utils,0.36,LOW,3,0.25,0.75,1862,0.5749,0.0,0.0,no files found,,False
+104,pypi,pyinstrument,pyinstruments,0.3592,LOW,3,0.0833,0.9167,58,0.3113,1.0,0.0814,,ducminhgd/ipdb,False
+105,npm,confusing-browser-globals,@1o1w1/confusing-browser-globals,0.3513,LOW,3,0.2258,0.7742,981,0.526,0.0,0.0,no files found,,False
+106,pypi,nvidia-cufft-cu11,nvidia-cufft-cu111,0.3426,LOW,3,0.0,1.0,56,0.3087,0.0,0.0,no files found,,False
+107,pypi,streamlit-echarts,streamlit-echarts5,0.3403,LOW,3,0.0588,0.9412,3,0.1058,3.0,0.1628,,mitbal/harvest,False
+108,pypi,python-pptx,python-pptx2,0.3396,LOW,3,0.0909,0.9091,134,0.3745,0.0,0.0,no files found,,False
+109,npm,web3-eth-abi,3f-web3-eth-abi,0.338,LOW,3,0.2143,0.7857,482,0.4718,0.0,0.0,no files found,,False
+110,pypi,databricks-pypi1,databricks-pypi,0.3361,LOW,3,0.0667,0.9333,0,0.0,6.0,0.2285,,kfiramar/baldar,False
+111,pypi,spotinst-agent-2,spotinst-agent,0.335,LOW,3,0.0714,0.9286,0,0.0,6.0,0.2285,,kfiramar/baldar,False
+112,pypi,pydantic-partial,pydantic-partials,0.3324,LOW,3,0.0667,0.9333,5,0.1368,2.0,0.129,,TeddyMuli/django-oauth2,False
+113,npm,web3-core,3f-web3-core,0.3324,LOW,3,0.2727,0.7273,715,0.5019,0.0,0.0,no files found,,False
+114,pypi,nvidia-cudnn-cu11,nvidia-cudnn-cu110,0.3316,LOW,3,0.0667,0.9333,72,0.3276,0.0,0.0,no files found,,False
+115,pypi,nvidia-cusparse-cu11,nvidia-cusparse-cu113,0.3287,LOW,3,0.0556,0.9444,56,0.3087,0.0,0.0,no files found,,False
+116,npm,text-extensions,8g-extension,0.3268,LOW,3,0.25,0.75,437,0.4644,0.0,0.0,no files found,,False
+117,pypi,django-cache-memoize,django-cache-memoized,0.3244,LOW,3,0.05,0.95,8,0.1678,1.0,0.0814,,bernd-wechner/CoGs,False
+118,pypi,types-aiobotocore-elbv2,types-aiobotocore-elb,0.3222,LOW,3,0.0909,0.9091,4,0.1229,2.0,0.129,,Rohanrn9882/DemoTesting,False
+119,npm,text-extensions,3extensions,0.3211,LOW,3,0.2727,0.7273,437,0.4644,0.0,0.0,no files found,,False
+120,pypi,nvidia-nvtx-cu11,nvidia-nvtx-cu115,0.32,LOW,3,0.0667,0.9333,43,0.2889,0.0,0.0,no files found,,False
+121,pypi,nvidia-cublas-cu12,nvidia-cublas-cu112,0.32,LOW,3,0.0625,0.9375,41,0.2854,0.0,0.0,no files found,,False
+122,pypi,nvidia-cudnn-cu12,nvidia-cudnn-cu112,0.3178,LOW,3,0.0667,0.9333,39,0.2816,0.0,0.0,no files found,,False
+123,pypi,spotinst-agent,spotinst-agent-2,0.3172,LOW,3,0.0714,0.9286,0,0.0,4.0,0.189,,kfiramar/baldar,False
+124,pypi,djangorestframework-jsonapi,ak-djangorestframework-jsonapi,0.3157,LOW,3,0.0741,0.9259,7,0.1588,1.0,0.0814,,tejeshn48/Naukriapp,False
+125,npm,buffers,6-buffers,0.3135,LOW,3,0.25,0.75,244,0.42,0.0,0.0,no files found,,False
+126,pypi,pyrr,pyrrr,0.3104,LOW,3,0.0,1.0,13,0.2015,0.0,0.0,no files found,,False
+127,pypi,segment-anything,segment-anythingv,0.3081,LOW,3,0.0625,0.9375,24,0.2457,0.0,0.0,no files found,,False
+128,npm,to-readable-stream,4meme-readable-stream,0.3067,LOW,3,0.2778,0.7222,246,0.4206,0.0,0.0,no files found,,True
+129,pypi,djangorestframework-camel-case,djangorestframework-camel-case2,0.3062,LOW,3,0.04,0.96,17,0.2207,0.0,0.0,no files found,,False
+130,npm,router,000router,0.3057,LOW,3,0.2857,0.7143,256,0.4237,0.0,0.0,no files found,,False
+131,pypi,nvidia-nvtx-cu12,nvidia-nvtx-cu112,0.3019,LOW,3,0.0667,0.9333,19,0.2287,0.0,0.0,no files found,,False
+132,pypi,python-interface,python-interfaces,0.2964,LOW,3,0.0625,0.9375,14,0.2067,0.0,0.0,no files found,,False
+133,pypi,mkdocs-git-committers-plugin-2,mkdocs-git-committers-plugin-cn,0.2964,LOW,3,0.0741,0.9259,16,0.2163,0.0,0.0,no files found,,False
+134,pypi,azure-monitor-opentelemetry-exporter,azure-opentelemetry-exporter-azuremonitor,0.294,LOW,3,0.0588,0.9412,12,0.1958,0.0,0.0,no files found,,False
+135,pypi,django-jsonfield,django-jsonfieldI,0.2931,LOW,3,0.0625,0.9375,12,0.1958,0.0,0.0,no files found,,False
+136,pypi,databind-json,databind-json2,0.2895,LOW,3,0.0769,0.9231,12,0.1958,0.0,0.0,no files found,,False
+137,pypi,apache-airflow-providers-apache-hdfs,apache-airflow-providers-hdfs,0.2818,LOW,3,0.0,1.0,3,0.1058,0.0,0.0,no files found,,False
+138,pypi,cuequivariance-ops-torch-cu12,cuequivariance-ops-torch-cu13,0.2688,LOW,3,0.0714,0.9286,0,0.0,1.0,0.0814,,NVIDIA-BioNeMo/BioNeMo-Inference-Runtime,False
+139,pypi,opentelemetry-instrumentation-chromadb,opentelemetry-if-instrumentation-chromadb,0.2675,LOW,3,0.0571,0.9429,3,0.1058,0.0,0.0,no files found,,False
+140,pypi,opentelemetry-instrumentation-pinecone,opentelemetry-if-instrumentation-pinecone,0.2661,LOW,3,0.0625,0.9375,3,0.1058,0.0,0.0,no files found,,False
+141,pypi,opentelemetry-instrumentation-replicate,opentelemetry-if-instrumentation-replicate,0.2605,LOW,3,0.0588,0.9412,2,0.0839,0.0,0.0,no files found,,False
+142,pypi,recognizers-text-choice,ms-recognizers-text-choice,0.2543,LOW,3,0.0833,0.9167,2,0.0839,0.0,0.0,no files found,,False
+143,pypi,agent-framework-azurefunctions,azurefunctions-agent-framework,0.2333,LOW,3,0.0667,0.9333,0,0.0,0.0,0.0,no files found,,False
+144,pypi,workspace-mcp,gworkspace-mcp,0.2308,LOW,3,0.0769,0.9231,0,0.0,0.0,0.0,no files found,,False
+145,pypi,pyapns-client,pyapns-client3,0.2308,LOW,3,0.0769,0.9231,0,0.0,0.0,0.0,no files found,,False
+146,pypi,toolbox-core,utoolbox-core,0.2292,LOW,3,0.0833,0.9167,0,0.0,0.0,0.0,no files found,,False
+147,pypi,json-schema-to-pydantic,bson-schema-to-pydantic,0.2283,LOW,3,0.087,0.913,0,0.0,0.0,0.0,no files found,,False
+148,pypi,snowpark-connect-deps-1,snowpark-connect-deps-2,0.2283,LOW,3,0.087,0.913,0,0.0,0.0,0.0,no files found,,False
+149,pypi,django-enum,django-enums,0.2273,LOW,3,0.0909,0.9091,0,0.0,0.0,0.0,no files found,,False
+150,npm,dc-polyfill,1c-polyfill,0.2204,LOW,3,0.1818,0.8182,1,0.0529,0.0,0.0,no files found,,False

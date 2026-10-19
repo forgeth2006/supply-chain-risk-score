@@ -136,12 +136,34 @@ print(timing.to_string(index=False))
 print("Time grew much more slowly than the data, because Spark spreads the work across cores.")
 
 # %%
-# Combined score (filled in once the scoring work is merged into data/final_scores.csv)
-final_path = os.path.join(DATA, "final_scores.csv")
-if os.path.exists(final_path):
-    print(pd.read_csv(final_path).head(10).to_string(index=False))
+# Combined score: ranked list with every signal visible (made by scoring/score.py)
+final = pd.read_csv(os.path.join(DATA, "final_scores.csv"))
+show = ["rank", "ecosystem", "popular_name", "candidate_name", "score", "tier",
+        "jaccard_distance", "popular_dependents", "github_hit_count"]
+print(final[show].head(10).to_string(index=False))
+used = final["signals_used"].max()
+print(f"\nSignals used per row: up to {used} of 3."
+      + ("" if used == 3 else " Signal 2 (blast radius) is not assessed until data/blast_radius.csv exists."))
+print("Rows with only 2 signals had a GitHub hit count above 5,000 (common word), so that signal was ignored.")
+print(final["tier"].value_counts().to_string())
+
+# %%
+# Validation against the OpenSSF malicious-packages dataset (ground truth)
+ov_path = os.path.join(DATA, "validation_overlap.csv")
+if os.path.exists(ov_path):
+    ov = pd.read_csv(ov_path)
+    known = ov[ov["candidate_listed_malicious"]].drop_duplicates(["ecosystem", "candidate_name"])
+    n = ov.drop_duplicates(["ecosystem", "candidate_name"]).groupby("ecosystem")["candidate_listed_malicious"].agg(["sum", "count"])
+    print("Shortlisted candidates that OpenSSF lists as malicious:\n", n.to_string(), "\n")
+    print(known[["popular_name", "candidate_name", "ecosystem", "github_hit_count"]].to_string(index=False))
+    print("\nRecall check on PyPI (all 11,817 known-malicious names vs the popular list):")
+    print(pd.read_csv(os.path.join(DATA, "validation_signal1_recall.csv")).to_string(index=False))
+    sv = os.path.join(DATA, "score_validation.csv")
+    if os.path.exists(sv):
+        print("\nHow well each signal ranks the known-malicious candidates (AUC, 0.5 = chance):")
+        print(pd.read_csv(sv).to_string(index=False))
 else:
-    print("Combined scoring not available yet: data/final_scores.csv does not exist.")
+    print("Run scoring/validate_openssf.py first.")
 
 # %% [markdown]
 # ## Limits to state out loud
@@ -150,4 +172,7 @@ else:
 # - Name similarity alone cannot separate attacks from coincidences (flask-restplus scored closer
 #   to flask-restful than reqeusts did to requests), which is why there are three signals.
 # - A GitHub hit shows a name exists in a dependency file, not that anyone was attacked.
+# - Validation: the combined score does NOT separate the known-malicious candidates from the rest (AUC about 0.47, see table).
+#   Malicious packages are removed quickly and leave little GitHub footprint, while heavily used lookalikes
+#   are mostly legitimate packages. We report this instead of retuning the weights on 7 examples.
 # %%

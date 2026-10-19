@@ -17,7 +17,7 @@ encountered during Signal 1's full-scale run (see lsh_similarity_design.md).
 ## Results
 - 150/150 candidates checked successfully (after resolving a rate-limit
   retry round).
-- ~53+ candidates showed at least one real GitHub hit.
+- 93 of 150 candidates returned at least one GitHub hit (86 in the range 1 to 5,000; 7 above 5,000, which were discarded as noise). 57 returned no files.
 - Applied a skepticism filter: excluded hits with count > 5000, since
   extremely high hit counts indicate the candidate is a common English
   word/substring producing coincidental matches (e.g. "expect" returned
