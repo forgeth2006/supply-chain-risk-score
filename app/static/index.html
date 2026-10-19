@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Typosquat Detector - Live Demo</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#14202b;--mut:#5b6b7a;--line:#dfe4ea;--side:#12202e;--accent:#0f766e;--accent2:#b45309;--bad:#b91c1c;--ok:#15803d;--chip:#e6f4f1;--chip2:#fdf0dc}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);display:flex;min-height:100vh}
+nav{width:250px;background:var(--side);color:#cfe0ec;padding:18px 0;position:sticky;top:0;height:100vh;overflow:auto;flex:none}
+nav h1{font-size:15px;margin:0 18px 2px;color:#fff;letter-spacing:.02em}
+nav small{display:block;margin:0 18px 14px;color:#8fa6b8}
+nav a{display:block;padding:9px 18px;color:#cfe0ec;text-decoration:none;cursor:pointer;border-left:3px solid transparent;font-size:14px}
+nav a:hover{background:#1a2d3f}
+nav a.on{background:#1a2d3f;border-left-color:#2dd4bf;color:#fff}
+nav a b{display:inline-block;width:22px;color:#2dd4bf}
+.tok{margin:16px 18px 0;padding-top:12px;border-top:1px solid #254058;font-size:12px;color:#8fa6b8}
+.tok input{width:100%;margin-top:4px;padding:6px;border-radius:6px;border:1px solid #365770;background:#0c1823;color:#fff}
+main{flex:1;min-width:0;padding:28px 32px 60px;max-width:1100px}
+h2{margin:0 0 4px;font-size:24px}
+.sub{color:var(--mut);margin:0 0 18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:0 0 16px}
+.card h3{margin:0 0 8px;font-size:16px}
+.say{border-left:4px solid var(--accent);background:#eef8f6;padding:10px 14px;border-radius:0 8px 8px 0;margin:0 0 16px;font-size:14px}
+.say b{color:var(--accent)}
+.warn{border-left:4px solid var(--accent2);background:#fdf3e4;padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0;font-size:14px}
+.err{border-left:4px solid var(--bad);background:#fdecec;padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0;font-size:14px;white-space:pre-wrap}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+input[type=text],select,input[type=password],input[type=number]{padding:9px 11px;border:1px solid var(--line);border-radius:8px;font-size:15px;background:#fff;color:var(--ink)}
+input.big{width:340px;max-width:100%}
+button{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:10px 16px;font-size:14px;font-weight:600;cursor:pointer}
+button:hover{filter:brightness(1.1)}
+button.alt{background:#fff;color:var(--accent);border:1px solid var(--accent)}
+button:disabled{opacity:.5;cursor:wait}
+.eg{font-size:13px;color:var(--mut);margin-top:8px}
+.eg a{cursor:pointer;color:var(--accent);margin-right:10px;text-decoration:underline}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:6px 9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:#f0f3f6;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);position:sticky;top:0}
+.scroll{max-height:380px;overflow:auto;border:1px solid var(--line);border-radius:8px}
+.chip{display:inline-block;padding:2px 7px;margin:2px;border-radius:6px;font:13px ui-monospace,Consolas,monospace;background:#eceff3}
+.chip.s{background:var(--chip);color:#065f56;font-weight:700}
+.chip.o{background:var(--chip2);color:#8a4a06}
+pre.log{background:#0c1823;color:#bfe3d9;padding:12px;border-radius:8px;font:12.5px/1.5 ui-monospace,Consolas,monospace;max-height:230px;overflow:auto;white-space:pre-wrap;margin:10px 0 0}
+.big-n{font-size:26px;font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.stat{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:#fbfcfd}
+.stat span{display:block;color:var(--mut);font-size:12.5px}
+.ok{color:var(--ok);font-weight:700}.bad{color:var(--bad);font-weight:700}.mut{color:var(--mut)}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
+.flow div{flex:1 1 150px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff;cursor:pointer}
+.flow div:hover{border-color:var(--accent)}
+.flow div b{display:block;color:var(--accent)}
+.flow div small{color:var(--mut)}
+.pg{display:none}.pg.on{display:block}
+tr.mal td{background:#fdecec}
+.tag{display:inline-block;padding:1px 8px;border-radius:99px;font-size:12px;font-weight:700}
+.t-HIGH{background:#fde2e2;color:var(--bad)}.t-MEDIUM{background:#fdf0dc;color:#8a4a06}.t-LOW{background:#e4f4e8;color:var(--ok)}.t-UN{background:#eceff3;color:var(--mut)}
+.step{display:flex;gap:12px;margin:0 0 10px}
+.step .n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
+.step .n.wait{background:#aab6c2}.step .n.fail{background:var(--bad)}
+.step .b{flex:1;min-width:0;border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:#fff}
+.step .b h4{margin:0 0 4px;font-size:15px}
+input[type=range]{width:200px}
+@media(max-width:800px){body{flex-direction:column}nav{width:100%;height:auto;position:static}main{padding:18px 14px}}
+</style>
+</head>
+<body>
+<nav>
+  <h1>Typosquat Detector</h1><small>Live demo - every page runs real code</small>
+  <a data-p="0" class="on"><b>0</b>Overview &amp; checks</a>
+  <a data-p="1"><b>1</b>Name similarity (Signal 1)</a>
+  <a data-p="2"><b>2</b>Why big data (scale test)</a>
+  <a data-p="3"><b>3</b>Blast radius (Signal 2)</a>
+  <a data-p="4"><b>4</b>GitHub evidence (Signal 3)</a>
+  <a data-p="5"><b>5</b>Combined score</a>
+  <a data-p="6"><b>6</b>Validation</a>
+  <a data-p="7"><b>&#9733;</b>Check a package end-to-end</a>
+  <div class="tok">GitHub token (optional, only for live Signal 3). Kept in this page's memory only, never saved.
+    <input id="tok" type="password" placeholder="ghp_..."></div>
+</nav>
+<main>
+
+<!-- ============ 0 OVERVIEW ============ -->
+<section class="pg on" id="p0">
+  <h2>Typosquat detector: the whole pipeline, live</h2>
+  <p class="sub">A typosquat is a fake package whose name is almost a popular name (<span class="chip">reqeusts</span> vs <span class="chip">requests</span>). This app runs each stage of our project for real. Click a stage to open it.</p>
+  <div class="flow">
+    <div data-go="1"><b>1 Name similarity</b>Cut names into 2-letter pieces, MinHash, LSH, then exact Jaccard. Also a real Spark job.<small><br>Signal 1</small></div>
+    <div data-go="2"><b>2 Scale test</b>Why brute force breaks at 13.3 billion pairs and LSH does not.</div>
+    <div data-go="3"><b>3 Blast radius</b>Live call: how many packages depend on the popular one?<small><br>Signal 2</small></div>
+    <div data-go="4"><b>4 Evidence</b>Live GitHub search + live scan of one hour of GH Archive.<small><br>Signal 3</small></div>
+    <div data-go="5"><b>5 Score</b>Our scoring code, with your weights, on all 150 candidates.</div>
+    <div data-go="6"><b>6 Validation</b>Checked against the OpenSSF list of real malicious packages.</div>
+    <div data-go="7"><b>&#9733; End-to-end</b>Type one name, watch all stages run.</div>
+  </div>
+  <div class="card" style="margin-top:16px"><h3>Environment check (runs now)</h3><div id="env" class="mut">checking...</div></div>
+  <div class="say"><b>What to say:</b> "The pipeline has three signals. Signal 1 asks: does this name look like a popular one? Signal 2: how many packages would be hurt if it were bad? Signal 3: is anyone actually using the lookalike? Each page here runs that step for real, and the last page runs all of them on one name."</div>
+  <div class="warn"><b>Honest scope:</b> live Signal 1 runs against the 15,000 most-downloaded PyPI names. The full 884,779-name registry run was done once on Spark (about 9 min) and the 150-candidate results are the saved data this app also uses on the Score and Validation pages.</div>
+</section>
+
+<!-- ============ 1 SIGNAL 1 ============ -->
+<section class="pg" id="p1">
+  <h2>1. Name similarity (Signal 1)</h2>
+  <p class="sub">Is this name suspiciously close to a popular package?</p>
+  <div class="card">
+    <div class="row"><input type="text" id="s1name" class="big" value="reqeusts" placeholder="type a package name">
+      <label>LSH tables: <input type="range" id="s1tables" min="1" max="10" value="5"> <b id="s1tv">5</b></label>
+      <button id="s1go">Run live</button></div>
+    <div class="eg">Try: <a data-ex="reqeusts">reqeusts</a><a data-ex="reuests">reuests</a><a data-ex="djanggo">djanggo</a><a data-ex="numpyy">numpyy</a><a data-ex="flask-restplus">flask-restplus</a><a data-ex="kubernetes">kubernetes</a></div>
+  </div>
+  <div id="s1out"></div>
+  <div class="card">
+    <h3>The real Spark job</h3>
+    <p class="mut" style="margin:0 0 8px">Runs our actual Spark ML pipeline in a separate process: NGram(2) &rarr; CountVectorizer(binary) &rarr; MinHashLSH &rarr; approxSimilarityJoin. Left side = your name + the 75 PyPI shortlist candidates; right side = the 15,000 popular names. Needs Java + <code>pip install pyspark</code>; first start takes 10-40 s.</p>
+    <button id="sparkgo" class="alt">Run the Spark job</button>
+    <div id="sparkout"></div>
+  </div>
+  <div class="say"><b>What to say:</b> "A name is cut into overlapping 2-letter pieces. Two names are close when they share many pieces (Jaccard). Comparing against every popular name is fine for one name, but not for 884,779 x 15,000 names. MinHash gives each name a short fingerprint and LSH only compares names whose fingerprints collide. The slider shows the trade-off: more tables find more true matches but compare more names."</div>
+</section>
+
+<!-- ============ 2 SCALE ============ -->
+<section class="pg" id="p2">
+  <h2>2. Why big data: the scale test</h2>
+  <p class="sub">Measure it yourself, then extrapolate to the real registry.</p>
+  <div class="card">
+    <div class="row"><button id="bgo">Run the scale test (about 20 s)</button><span class="mut">100 typo-style queries against 1,000 / 3,000 / 8,000 / 15,000 names.</span></div>
+    <div id="bout"></div>
+  </div>
+  <div class="card"><h3>Measured on the real Spark pipeline (from the project)</h3>
+    <table><tr><th>Names compared</th><th>Spark time</th></tr><tr><td>2,000</td><td>34.7 s</td></tr><tr><td>20,000</td><td>92.3 s</td></tr><tr><td>100,000</td><td>322.5 s</td></tr><tr><td>884,779 (full PyPI)</td><td>about 9 min</td></tr></table>
+    <p class="mut">50x more data took about 9x more time. Brute force grows with the number of pairs (data x data), Spark+LSH grows roughly with the data.</p></div>
+  <div class="say"><b>What to say:</b> "Naive comparison needs 884,779 x 15,000 = 13.27 billion exact comparisons. The test above shows LSH cutting the exact comparisons by about 95%, and shows what the naive way would cost in hours on one core. That is the big-data problem we solved with Spark."</div>
+</section>
+
+<!-- ============ 3 SIGNAL 2 ============ -->
+<section class="pg" id="p3">
+  <h2>3. Blast radius (Signal 2)</h2>
+  <p class="sub">If a lookalike of this popular package were malicious, how many other packages could it hurt?</p>
+  <div class="card">
+    <div class="row"><input type="text" id="s2name" class="big" value="requests"><select id="s2eco"><option>pypi</option><option>npm</option></select><button id="s2go">Fetch live</button></div>
+    <div class="eg">Try: <a data-ex2="requests|pypi">requests</a><a data-ex2="flask|pypi">flask</a><a data-ex2="express|npm">express</a><a data-ex2="electron|npm">electron</a><a data-ex2="wheel|pypi">wheel</a></div>
+    <div id="s2out"></div>
+  </div>
+  <div class="card"><h3>Why this is a live API call and not our Neo4j graph</h3>
+    <p style="margin:0">Our Neo4j graph stores forward edges only (what a package depends on). Blast radius needs the reverse (who depends on it), so we fetch the count from ecosyste.ms (deps.dev as backup). In scoring: <code>s2 = log(1+dependents) / log(1+largest)</code>. A missing value means unknown, never zero.</p></div>
+  <div class="say"><b>What to say:</b> "An attack on a package nobody uses is a small problem; an attack on a package thousands of projects depend on is a big one. This page asks a public index live and turns the count into a 0-1 number."</div>
+</section>
+
+<!-- ============ 4 SIGNAL 3 ============ -->
+<section class="pg" id="p4">
+  <h2>4. Real-world evidence (Signal 3)</h2>
+  <p class="sub">Is anyone actually using this lookalike name?</p>
+  <div class="card"><h3>A. GitHub Code Search (live)</h3>
+    <div class="row"><input type="text" id="s3name" class="big" value="wheeel"><select id="s3eco"><option>pypi</option><option>npm</option></select><button id="s3go">Search GitHub live</button></div>
+    <div class="eg">Needs a GitHub token in the box at the bottom-left (GitHub requires one for code search). Without it you still see the saved result from our earlier run. Try: <a data-ex3="wheeel|pypi">wheeel</a><a data-ex3="4electron|npm">4electron</a><a data-ex3="3router|npm">3router</a><a data-ex3="anima|pypi">anima</a></div>
+    <div id="s3out"></div></div>
+  <div class="card"><h3>B. GH Archive scan (live, one hour)</h3>
+    <p class="mut" style="margin:0 0 8px">GH Archive records every public GitHub event. This downloads one hourly file (tens of MB), reads every event and counts pushes to repos named like our 150 candidate names. The project's full run did the same over 168 hourly files (12,061,354 events) with Spark.</p>
+    <div class="row"><label>Hour (UTC): <input type="text" id="ahour" value="2026-08-27-12" style="width:150px"></label>
+      <label>Extra names (comma separated): <input type="text" id="aextra" placeholder="optional" style="width:200px"></label>
+      <button id="ago">Scan this hour</button></div>
+    <div id="aout"></div></div>
+  <div class="say"><b>What to say:</b> "A lookalike nobody uses is not dangerous yet; one that shows up in real requirements files is. Hit counts above 5,000 are ignored because those are common English words. A hit shows the name exists in files, not that someone was attacked."</div>
+</section>
+
+<!-- ============ 5 SCORE ============ -->
+<section class="pg" id="p5">
+  <h2>5. Combined score</h2>
+  <p class="sub">The project's real scoring code, re-run live with weights you choose.</p>
+  <div class="card"><h3>A. Score one candidate</h3>
+    <div class="row">
+      <label>Jaccard distance <input type="number" id="c_d" step="0.01" min="0" max="1" style="width:90px"></label>
+      <label>Dependents of popular pkg <input type="number" id="c_dep" style="width:110px"></label>
+      <label>GitHub hits <input type="number" id="c_hits" style="width:90px"></label>
+      <button id="c_go">Score it</button><button id="c_fill" class="alt">Fill from last check</button></div>
+    <div class="eg">Leave a box empty to mean "unknown" - that signal is dropped and the other weights are rescaled (never treated as zero).</div>
+    <div id="c_out"></div></div>
+  <div class="card"><h3>B. Re-rank all 150 shortlisted candidates</h3>
+    <div class="row">
+      <label>w Signal 1 <input type="range" id="w1" min="0" max="100" value="25"> <b id="w1v">0.25</b></label>
+      <label>w Signal 2 <input type="range" id="w2" min="0" max="100" value="30"> <b id="w2v">0.30</b></label>
+      <label>w Signal 3 <input type="range" id="w3" min="0" max="100" value="45"> <b id="w3v">0.45</b></label>
+      <button id="wreset" class="alt">Reset to 0.25 / 0.30 / 0.45</button></div>
+    <div id="rk_sum" class="mut" style="margin:10px 0"></div>
+    <div class="scroll"><table id="rk"><thead><tr><th>#</th><th>Eco</th><th>Popular</th><th>Candidate</th><th>Score</th><th>Tier</th><th>S1</th><th>S2</th><th>S3</th><th>Dependents</th><th>GitHub hits</th><th>OpenSSF</th></tr></thead><tbody></tbody></table></div>
+    <div class="eg">Red rows = candidates that really are in the OpenSSF malicious-package list.</div></div>
+  <div class="say"><b>What to say:</b> "Each signal becomes a 0-1 number, then a weighted average: 0.25 name, 0.30 blast radius, 0.45 evidence. The weights are reasoned, not fitted. Drag them and the ranking changes - that is our sensitivity test. The score means exposure if malicious, not probability of malice."</div>
+</section>
+
+<!-- ============ 6 VALIDATION ============ -->
+<section class="pg" id="p6">
+  <h2>6. Validation against real malicious packages</h2>
+  <p class="sub">Ground truth: the OpenSSF malicious-packages list (11,825 PyPI names stored here).</p>
+  <div class="card"><h3>A. Is this name known malicious?</h3>
+    <div class="row"><input type="text" id="gtname" class="big" value="0requests"><select id="gteco"><option>pypi</option><option>npm</option></select><button id="gtgo">Look up</button></div>
+    <div class="eg">Try: <a data-exg="0requests|pypi">0requests</a><a data-exg="3lectron|npm">3lectron</a><a data-exg="requests|pypi">requests</a></div>
+    <div id="gtout"></div></div>
+  <div class="card"><h3>B. How well does our score separate known-malicious from the rest? (live AUC)</h3>
+    <div id="aucout" class="mut">loading...</div></div>
+  <div class="card"><h3>C. Name similarity alone: recall on 11,817 known-malicious PyPI names</h3><div id="recallout" class="mut">loading...</div></div>
+  <div class="card"><h3>D. Re-run the whole validation script</h3>
+    <p class="mut" style="margin:0 0 8px">Runs <code>scoring/validate_openssf.py</code>: clones the OpenSSF list (names only), recomputes overlap and recall, rewrites the data files. Needs git and internet; takes under a minute.</p>
+    <button id="vgo" class="alt">Run validate_openssf.py now</button><div id="vout"></div></div>
+  <div class="warn"><b>Result, stated honestly:</b> 6 of 70 npm candidates and 0 of 74 PyPI candidates are on the list. Combined-score AUC is about 0.47 (about 0.35 within npm), i.e. no better than chance. Signal 2's apparent 0.74 comes from npm packages having far more dependents than PyPI, a confound, not skill. We did not retune weights on 6 positives (overfitting).</div>
+  <div class="say"><b>What to say:</b> "We tested our own score against real attacks and report the negative result. The score measures how much damage a lookalike could do if it were malicious; it does not by itself detect malice. Malicious packages are removed quickly, so they have little GitHub footprint."</div>
+</section>
+
+<!-- ============ 7 END TO END ============ -->
+<section class="pg" id="p7">
+  <h2>&#9733; Check a package, end to end</h2>
+  <p class="sub">Type any name. The app runs every stage live and shows what each one found.</p>
+  <div class="card">
+    <div class="row"><input type="text" id="e2name" class="big" value="wheeel"><select id="e2eco"><option>pypi</option></select><button id="e2go">Run the whole pipeline</button></div>
+    <div class="eg">Work with no token (their GitHub result is saved): <a data-ex4="wheeel">wheeel</a><a data-ex4="anima">anima</a><a data-ex4="commm">commm</a><a data-ex4="0requests">0requests</a> &nbsp;|&nbsp; Need the GitHub token (bottom-left) for a live search: <a data-ex4="reqeusts">reqeusts</a><a data-ex4="djanggo">djanggo</a><a data-ex4="numpyy">numpyy</a> &nbsp;|&nbsp; Not a typosquat: <a data-ex4="kubernetes">kubernetes</a></div>
+    <div class="mut" style="font-size:13px;margin-top:6px">Live name comparison is against the 15,000 popular <b>PyPI</b> names. For npm use pages 3 and 4.</div>
+  </div>
+  <div id="e2out"></div>
+  <div class="say"><b>What to say:</b> "Watch the five steps: find the closest popular package, ask how many packages depend on it, look for the name in GitHub, combine into a score, then compare with the real malicious list."</div>
+</section>
+
+</main>
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt=n=>n==null?'-':Number(n).toLocaleString();
+const LAST={};   // values from the latest check, used to prefill the score page
+const tok=()=>$('#tok').value.trim();
+async function api(url,body){const r=await fetch(url,body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{});return r.json();}
+function go(p){$$('.pg').forEach(e=>e.classList.toggle('on',e.id==='p'+p));$$('nav a').forEach(a=>a.classList.toggle('on',a.dataset.p==p));if(p==5)loadRanking();if(p==6)loadValidation();window.scrollTo(0,0);}
+$$('nav a').forEach(a=>a.onclick=()=>go(a.dataset.p));
+$$('[data-go]').forEach(d=>d.onclick=()=>go(d.dataset.go));
+function busy(btn,on,txt){btn.disabled=on;if(on){btn.dataset.t=btn.textContent;btn.textContent=txt||'Running...';}else btn.textContent=btn.dataset.t||btn.textContent;}
+async function pollJob(jid,logEl){for(;;){const j=await api('/api/job/'+jid);if(logEl)logEl.textContent=j.log.join('\n')+(j.status==='running'?'\n...':'');if(logEl)logEl.scrollTop=1e9;if(j.status!=='running')return j;await new Promise(r=>setTimeout(r,900));}}
+const chips=(a,c)=>a.map(x=>`<span class="chip ${c||''}">${esc(x)}</span>`).join('')||'<span class="mut">none</span>';
+const tag=t=>{const k=t.startsWith('UNSCORED')?'UN':t;return `<span class="tag t-${k}">${esc(t.startsWith('UNSCORED')?'UNSCORED':t)}</span>`;};
+
+/* ---------- 0 env ---------- */
+api('/api/env').then(e=>{
+  const yn=(b,t)=>`<span class="${b?'ok':'bad'}">${b?'OK':'missing'}</span> ${t}`;
+  let h=`<div class="grid">`;
+  h+=`<div class="stat"><span>Python</span>${esc(e.python)}</div>`;
+  h+=`<div class="stat"><span>Popular PyPI names indexed</span>${fmt(e.popular)}</div>`;
+  h+=`<div class="stat"><span>Spark (page 1 real job)</span>${yn(e.pyspark,'pyspark')}<br>${yn(e.java,'Java')}</div>`;
+  h+=`<div class="stat"><span>GitHub token in environment</span>${e.token?'<span class="ok">set</span>':'<span class="mut">not set (you can paste one at bottom-left)</span>'}</div>`;
+  h+=`</div><div style="margin-top:10px"><b>Internet:</b> `+Object.entries(e.net).map(([k,v])=>`${yn(v,esc(k))}`).join(' &nbsp; ')+`</div>`;
+  h+=`<div style="margin-top:6px"><b>Data files:</b> `+Object.entries(e.files).map(([k,v])=>`${yn(v,esc(k))}`).join(' &nbsp; ')+`</div>`;
+  $('#env').innerHTML=h;
+}).catch(()=>$('#env').textContent='env check failed');
+
+/* ---------- 1 signal 1 ---------- */
+$('#s1tables').oninput=e=>$('#s1tv').textContent=e.target.value;
+$$('[data-ex]').forEach(a=>a.onclick=()=>{$('#s1name').value=a.dataset.ex;runS1();});
+$('#s1go').onclick=runS1; $('#s1name').onkeydown=e=>{if(e.key==='Enter')runS1();};
+async function runS1(){
+  const b=$('#s1go');busy(b,true);
+  try{
+    const r=await api(`/api/signal1?name=${encodeURIComponent($('#s1name').value)}&tables=${$('#s1tables').value}`);
+    if(r.error){$('#s1out').innerHTML=`<div class="err">${esc(r.error)}</div>`;return;}
+    const t=r.top[0];
+    let h=`<div class="card"><h3>Step 1: cut "${esc(r.name)}" into 2-letter pieces (shingles)</h3>${chips(r.shingles)}
+      ${r.exact_in_popular?'<div class="warn">This exact name IS a popular package, so it is compared against all the others.</div>':''}</div>`;
+    h+=`<div class="card"><h3>Step 2: closest popular packages (exact Jaccard against all ${fmt(r.n_popular)})</h3>
+      <table><tr><th>Popular name</th><th>Distance</th><th>Similarity</th><th>Length ratio</th><th>Flagged (&le; ${r.threshold}, ratio &le; ${r.max_len_ratio})</th><th>Found by LSH?</th></tr>`+
+      r.top.map(x=>`<tr><td><b>${esc(x.name)}</b></td><td>${x.distance}</td><td>${x.similarity}</td><td>${x.len_ratio}</td><td>${x.flag?'<span class="bad">yes</span>':'no'}</td><td>${x.found_by_lsh?'<span class="ok">yes</span>':'<span class="mut">no</span>'}</td></tr>`).join('')+
+      `</table><p style="margin:12px 0 4px"><b>Why "${esc(t.name)}" is closest:</b> the pieces they share are <span class="chip s">teal</span>, pieces only in one are <span class="chip o">amber</span>.</p>
+      <div>Shared: ${chips(t.shared,'s')}</div><div>Only in your name: ${chips(t.only_typed,'o')}</div><div>Only in ${esc(t.name)}: ${chips(t.only_popular,'o')}</div>
+      <p class="mut" style="margin:8px 0 0">distance = 1 - shared / total distinct pieces = 1 - ${t.shared.length}/${t.shared.length+t.only_typed.length+t.only_popular.length} = ${t.distance}</p></div>`;
+    h+=`<div class="card"><h3>Step 3: MinHash + LSH finds them without comparing everything</h3><div class="grid">
+      <div class="stat"><span>Brute force</span><div class="big-n">${fmt(r.brute.comparisons)}</div>comparisons, ${r.brute.ms} ms<br>${r.brute.pairs_within_threshold} pairs within threshold</div>
+      <div class="stat"><span>LSH with ${r.lsh.tables} table${r.lsh.tables>1?'s':''}</span><div class="big-n">${fmt(r.lsh.candidates)}</div>candidates compared exactly (${r.lsh.reduction_pct}% fewer), ${r.lsh.ms} ms<br>${r.lsh.pairs_within_threshold} pairs within threshold</div>
+      <div class="stat"><span>Recall of LSH vs brute force</span><div class="big-n ${r.lsh.recall_pct<100?'bad':'ok'}">${r.lsh.recall_pct}%</div>${r.lsh.missed_count?`missed: ${r.lsh.missed.map(esc).join(', ')}`:'found every true pair'}</div></div>
+      <p class="mut" style="margin:10px 0 0">MinHash signature of your name (first ${r.lsh.tables} numbers): <code>${r.lsh.signature.join(', ')}</code>. A popular name becomes a candidate if it has the same number in at least one table. Move the slider and run again: more tables = fewer misses, more comparisons. That trade-off is the core of LSH.</p></div>`;
+    $('#s1out').innerHTML=h;
+    LAST.name=r.name;LAST.nearest=t.name;LAST.distance=t.distance;
+  }finally{busy(b,false);}
+}
+$('#sparkgo').onclick=async()=>{
+  const b=$('#sparkgo');busy(b,true,'Spark running...');
+  $('#sparkout').innerHTML='<pre class="log" id="splog">starting...</pre>';
+  try{
+    const {job}=await api('/api/spark',{name:$('#s1name').value,tables:+$('#s1tables').value});
+    const j=await pollJob(job,$('#splog'));
+    if(j.status==='error'){$('#sparkout').innerHTML+=`<div class="err">The Spark job did not run on this machine:\n${esc((j.log.slice(-1)[0]||'').replace('ERROR: ',''))}\n\nThe MinHash+LSH above is our own implementation of the same algorithm and works without Spark. Install Java and run <code>pip install pyspark</code> to enable this button.</div>`;return;}
+    const r=j.result, me=$('#s1name').value.trim().toLowerCase();
+    let h=`<div class="grid" style="margin-top:12px"><div class="stat"><span>Spark version</span>${esc(r.spark_version)}</div><div class="stat"><span>Total time (incl. start-up)</span>${r.seconds} s</div>
+      <div class="stat"><span>Naive pairs avoided</span>${fmt(r.naive_pairs)}</div><div class="stat"><span>Pairs found by LSH join</span>${fmt(r.pairs_found)}</div></div>
+      <div class="scroll" style="margin-top:10px"><table><tr><th>Name checked</th><th>Popular name</th><th>Jaccard distance</th></tr>`+
+      r.rows.map(x=>`<tr ${x.candidate_name===me?'style="background:#eef8f6"':''}><td>${esc(x.candidate_name)}</td><td>${esc(x.popular_name)}</td><td>${x.jaccard_distance}</td></tr>`).join('')+`</table></div><p class="mut">Sorted by distance; first 300 pairs. Your name is highlighted if it matched.</p>`;
+    $('#sparkout').innerHTML+=h;
+  }finally{busy(b,false);}
+};
+
+/* ---------- 2 scale ---------- */
+$('#bgo').onclick=async()=>{
+  const b=$('#bgo');busy(b,true,'Measuring...');$('#bout').innerHTML='<pre class="log" id="blog"></pre>';
+  try{
+    const {job}=await api('/api/benchmark',{});const j=await pollJob(job,$('#blog'));
+    if(j.status==='error')return;
+    const r=j.result;
+    let h=`<table style="margin-top:12px"><tr><th>Reference names</th><th>Exact comparisons: brute force</th><th>Exact comparisons: LSH</th><th>Brute force time</th><th>LSH time</th></tr>`+
+      r.rows.map(x=>`<tr><td>${fmt(x.size)}</td><td>${fmt(x.brute_comparisons)}</td><td>${fmt(x.lsh_comparisons)}</td><td>${x.brute_s}s</td><td>${x.lsh_query_s}s <span class="mut">(+${x.lsh_build_s}s one-time index)</span></td></tr>`).join('')+`</table>
+      <div class="card" style="margin-top:12px;background:#fdf3e4"><b>Extrapolation:</b> one exact comparison costs about ${r.per_comparison_us} microseconds here. The real job is 884,779 x 15,000 = <b>${fmt(r.full_pairs)}</b> pairs, so brute force on one core would take about <b class="bad">${r.full_hours_single_core} hours</b>. Spark with MinHash+LSH did it in about 9 minutes.</div>`;
+    $('#bout').innerHTML+=h;
+  }finally{busy(b,false);}
+};
+
+/* ---------- 3 signal 2 ---------- */
+$$('[data-ex2]').forEach(a=>a.onclick=()=>{const [n,e]=a.dataset.ex2.split('|');$('#s2name').value=n;$('#s2eco').value=e;runS2();});
+$('#s2go').onclick=runS2;
+async function runS2(){
+  const b=$('#s2go');busy(b,true,'Calling API...');
+  try{
+    const r=await api(`/api/signal2?name=${encodeURIComponent($('#s2name').value)}&eco=${$('#s2eco').value}`);
+    let h='';
+    if(r.error&&r.live==null)h+=`<div class="err">Live call failed: ${esc(r.error)}\nThis means UNKNOWN (never zero). ${r.cached!=null?'Saved value from our earlier run: '+fmt(r.cached):''}</div>`;
+    else h+=`<div class="grid" style="margin-top:12px"><div class="stat"><span>Live answer from ${esc(r.source)} (${r.seconds}s)</span><div class="big-n">${fmt(r.live)}</div>packages depend on <b>${esc(r.name)}</b></div>
+      <div class="stat"><span>Saved in our data (131 popular packages)</span>${r.cached!=null?`<div class="big-n">${fmt(r.cached)}</div>`:'<span class="mut">not among the 131</span>'}</div>
+      <div class="stat"><span>Signal 2 value s2 = log(1+n)/log(1+488,056)</span><div class="big-n">${(Math.log1p(r.live)/Math.log1p(488056)).toFixed(3)}</div></div></div>`;
+    $('#s2out').innerHTML=h;if(r.live!=null){LAST.deps=r.live;LAST.depsName=r.name;}
+  }finally{busy(b,false);}
+}
+
+/* ---------- 4 signal 3 ---------- */
+$$('[data-ex3]').forEach(a=>a.onclick=()=>{const [n,e]=a.dataset.ex3.split('|');$('#s3name').value=n;$('#s3eco').value=e;runS3();});
+$('#s3go').onclick=runS3;
+async function runS3(){
+  const b=$('#s3go');busy(b,true,'Searching...');
+  try{
+    const r=await api('/api/signal3',{name:$('#s3name').value,eco:$('#s3eco').value,token:tok()});
+    let h=`<p style="margin:12px 0 4px">Query sent to GitHub: <code>${esc(r.query)}</code></p><div class="grid">`;
+    h+=`<div class="stat"><span>Live result</span>${r.live?`<div class="big-n">${fmt(r.live.hits)}</div>files${r.live.hits>r.noise_limit?' <span class="bad">(&gt;5,000 = common word, ignored)</span>':''}<br>${r.live.example_repo?'example: '+esc(r.live.example_repo):''}`:`<span class="mut">not run</span>`}</div>`;
+    h+=`<div class="stat"><span>Saved from our earlier run (150 candidates)</span>${r.saved?`<div class="big-n">${fmt(r.saved.hits)}</div>files${r.saved.example_repo?'<br>example: '+esc(r.saved.example_repo):''}`:'<span class="mut">not among the 150</span>'}</div></div>`;
+    if(r.error)h+=`<div class="warn">${esc(r.error)}</div>`;
+    $('#s3out').innerHTML=h;
+    const hits=r.live?r.live.hits:(r.saved?r.saved.hits:null);if(hits!=null){LAST.hits=hits;LAST.hitsName=r.name;}
+  }finally{busy(b,false);}
+}
+$('#ago').onclick=async()=>{
+  const b=$('#ago');busy(b,true,'Scanning...');$('#aout').innerHTML='<pre class="log" id="alog">starting...</pre>';
+  try{
+    const {job}=await api('/api/archive',{hour:$('#ahour').value,extra:$('#aextra').value});
+    const j=await pollJob(job,$('#alog'));
+    if(j.status==='error'){$('#aout').innerHTML+=`<div class="err">${esc((j.log.slice(-1)[0]||'').replace('ERROR: ',''))}</div>`;return;}
+    const r=j.result;
+    $('#aout').innerHTML+=`<div class="grid" style="margin-top:12px"><div class="stat"><span>Events read</span><div class="big-n">${fmt(r.events)}</div></div><div class="stat"><span>Push events</span><div class="big-n">${fmt(r.pushes)}</div></div><div class="stat"><span>Time</span><div class="big-n">${r.seconds}s</div></div><div class="stat"><span>Repos matching a candidate name</span><div class="big-n">${r.matched_repos}</div></div></div>
+      <div class="scroll" style="margin-top:10px"><table><tr><th>Candidate name</th><th>Repo</th><th>Pushes</th><th>Distinct pushers</th></tr>`+
+      r.rows.map(x=>`<tr><td><b>${esc(x.short)}</b></td><td>${esc(x.repo)}</td><td>${x.pushes}</td><td>${x.pushers}</td></tr>`).join('')+`</table></div>
+      <p class="mut">Only repo names are matched, and one hour is a small window. In the full week, 5 of 142 candidate names matched and none looked like an attack.</p>`;
+  }finally{busy(b,false);}
+};
+
+/* ---------- 5 score ---------- */
+$('#c_fill').onclick=()=>{$('#c_d').value=LAST.distance??'';$('#c_dep').value=LAST.deps??'';$('#c_hits').value=LAST.hits??'';};
+$('#c_go').onclick=async()=>{
+  const n=id=>{const v=$(id).value;return v===''?null:+v;};
+  const r=await api('/api/score',{distance:n('#c_d'),dependents:n('#c_dep'),hits:n('#c_hits'),weights:{s1:+$('#w1').value/100,s2:+$('#w2').value/100,s3:+$('#w3').value/100}});
+  const f=x=>x==null?'<span class="mut">unknown (dropped)</span>':x.toFixed(3);
+  $('#c_out').innerHTML=`<table style="margin-top:12px"><tr><th>Signal</th><th>Value</th><th>Weight</th></tr><tr><td>S1 name similarity = 1 - distance</td><td>${f(r.s1)}</td><td>${r.weights.s1}</td></tr><tr><td>S2 blast radius = log(1+dep)/log(1+${fmt(r.top_dependents)})</td><td>${f(r.s2)}</td><td>${r.weights.s2}</td></tr><tr><td>S3 evidence = log(1+hits)/log(1+5000) (&gt;5000 ignored)</td><td>${f(r.s3)}</td><td>${r.weights.s3}</td></tr></table>
+   <p style="margin:10px 0 0">Score = <b class="big-n">${r.score==null?'not scored':r.score.toFixed(3)}</b> ${tag(r.tier)} <span class="mut">(${r.signals_used} of 3 signals used; fewer than 2 = unscored)</span></p>`;
+};
+const W=()=>({w1:$('#w1').value/100,w2:$('#w2').value/100,w3:$('#w3').value/100});
+['w1','w2','w3'].forEach(id=>$('#'+id).oninput=()=>{$('#'+id+'v').textContent=($('#'+id).value/100).toFixed(2);clearTimeout(window._t);window._t=setTimeout(loadRanking,250);});
+$('#wreset').onclick=()=>{$('#w1').value=25;$('#w2').value=30;$('#w3').value=45;['w1','w2','w3'].forEach(i=>$('#'+i).dispatchEvent(new Event('input')));};
+async function loadRanking(){
+  const w=W();const r=await api(`/api/ranking?w1=${w.w1}&w2=${w.w2}&w3=${w.w3}`);
+  $('#rk tbody').innerHTML=r.rows.map(x=>`<tr class="${x.mal?'mal':''}"><td>${x.rank}</td><td>${x.eco}</td><td>${esc(x.popular)}</td><td><b>${esc(x.candidate)}</b></td><td>${x.score==null?'-':x.score.toFixed(3)}</td><td>${tag(x.tier)}</td><td>${x.s1??'-'}</td><td>${x.s2??'-'}</td><td>${x.s3??'-'}</td><td>${fmt(x.deps)}</td><td>${fmt(x.hits)}</td><td>${x.mal?'<span class="bad">malicious</span>':''}</td></tr>`).join('');
+  $('#rk_sum').innerHTML=`${r.n_scored} of 150 scored. Known-malicious candidates rank at: <b>${r.known_ranks.join(', ')}</b> (out of 150; a useful score would put them near 1). Tied scores are ordered arbitrarily, so a rank can differ by 1 from the report.`;
+  window._aucs=r.aucs;renderAuc();
+}
+function renderAuc(){
+  const a=window._aucs;if(!a||!$('#aucout'))return;const f=x=>x==null?'-':x.toFixed(3);
+  $('#aucout').innerHTML=`<table><tr><th>Signal</th><th>AUC, all 150</th><th>AUC, npm only</th></tr>`+
+    [['s1','S1 name similarity'],['s2','S2 blast radius'],['s3','S3 evidence'],['score','Combined score']].map(([k,n])=>`<tr><td>${n}</td><td>${f(a[k+' | all'])}</td><td>${f(a[k+' | npm only'])}</td></tr>`).join('')+
+    `</table><p class="mut" style="margin:8px 0 0">AUC 0.5 = a coin flip, 1.0 = perfect. It follows the weight sliders on page 5. Positives: only 6 distinct npm names, so very uncertain. S2's higher number is the npm-vs-PyPI dependents confound.</p>`;
+}
+
+/* ---------- 6 validation ---------- */
+$$('[data-exg]').forEach(a=>a.onclick=()=>{const [n,e]=a.dataset.exg.split('|');$('#gtname').value=n;$('#gteco').value=e;lookup();});
+$('#gtgo').onclick=lookup;
+async function lookup(){
+  const r=await api(`/api/ground_truth?name=${encodeURIComponent($('#gtname').value)}&eco=${$('#gteco').value}`);
+  $('#gtout').innerHTML=`<p style="margin:12px 0 0">${r.listed?'<span class="bad">LISTED as malicious</span> in OpenSSF':'<span class="ok">not listed</span> in OpenSSF'} <span class="mut">(checked: ${esc(r.checked)}). Not listed does not mean safe.</span></p>`;
+}
+async function loadValidation(){
+  loadRanking();
+  const v=await api('/api/validation_data');
+  const f=x=>x==null?'-':(+x).toFixed(3);
+  $('#recallout').innerHTML=v.recall.length?`<table><tr>${Object.keys(v.recall[0]).map(k=>`<th>${esc(k)}</th>`).join('')}</tr>`+v.recall.map(r=>`<tr>${Object.values(r).map(x=>`<td>${typeof x==='number'?(Math.round(x*1000)/1000):esc(x)}</td>`).join('')}</tr>`).join('')+`</table><p class="mut" style="margin:8px 0 0">At the same distance cut-off name similarity flags a larger share of popular (benign proxy) packages than of known-malicious ones, so spelling alone is weak evidence.</p>`:'no data';
+}
+$('#vgo').onclick=async()=>{
+  const b=$('#vgo');busy(b,true,'Running script...');$('#vout').innerHTML='<pre class="log" id="vlog">starting...</pre>';
+  try{const {job}=await api('/api/validation_run',{});const j=await pollJob(job,$('#vlog'));
+    if(j.status==='error'){$('#vout').innerHTML+=`<div class="err">${esc((j.log.slice(-1)[0]||'').replace('ERROR: ',''))}\n(needs git and internet)</div>`;return;}
+    $('#vout').innerHTML+=`<p class="ok">Done in ${j.seconds}s. Files in data/ were rewritten.</p><pre class="log">${esc(j.result.summary.slice(0,3000))}</pre>`;loadValidation();
+  }finally{busy(b,false);}
+};
+
+/* ---------- 7 end to end ---------- */
+$$('[data-ex4]').forEach(a=>a.onclick=()=>{$('#e2name').value=a.dataset.ex4;runE2();});
+$('#e2go').onclick=runE2; $('#e2name').onkeydown=e=>{if(e.key==='Enter')runE2();};
+function stepCard(i,title,state,body){return `<div class="step"><div class="n ${state==='wait'?'wait':state==='fail'?'fail':''}">${i}</div><div class="b"><h4>${title}</h4>${body}</div></div>`;}
+async function runE2(){
+  const name=$('#e2name').value.trim().toLowerCase(), b=$('#e2go');busy(b,true,'Running...');
+  const steps=['Name similarity','Blast radius','GitHub evidence','Combine into a score','Compare with known malicious packages'];
+  const out=[];const draw=()=>{$('#e2out').innerHTML=out.join('');};
+  const set=(i,html)=>{out[i]=html;draw();};
+  steps.forEach((s,i)=>out[i]=stepCard(i+1,s,'wait','<span class="mut">waiting...</span>'));draw();
+  try{
+    set(0,stepCard(1,steps[0],'wait','<span class="mut">running...</span>'));
+    const s1=await api(`/api/signal1?name=${encodeURIComponent(name)}&tables=5`);
+    if(s1.error){set(0,stepCard(1,steps[0],'fail',esc(s1.error)));return;}
+    const t=s1.top[0];
+    set(0,stepCard(1,'Signal 1: name similarity',  'ok',`Closest popular package: <b>${esc(t.name)}</b>, distance <b>${t.distance}</b> (similarity ${t.similarity}), ${t.flag?'<span class="bad">inside our flag threshold</span>':'outside the flag threshold'}.<br>Shared pieces ${chips(t.shared,'s')} Only in yours ${chips(t.only_typed,'o')}<br><span class="mut">LSH compared ${fmt(s1.lsh.candidates)} of ${fmt(s1.brute.comparisons)} names (recall ${s1.lsh.recall_pct}%).</span>`));
+    set(1,stepCard(2,'Signal 2: blast radius','wait',`<span class="mut">asking ecosyste.ms how many packages depend on ${esc(t.name)}...</span>`));
+    const s2=await api(`/api/signal2?name=${encodeURIComponent(t.name)}&eco=pypi`);
+    const deps=s2.live!=null?s2.live:s2.cached;
+    set(1,stepCard(2,'Signal 2: blast radius',deps==null?'fail':'ok',deps==null?`Could not get a count (${esc(s2.error||'unknown')}). Treated as <b>unknown, not zero</b>; the signal is dropped.`:`<b>${fmt(deps)}</b> packages depend on <b>${esc(t.name)}</b> (${s2.live!=null?'live from '+esc(s2.source):'saved value from our earlier run; live call failed'}).`));
+    set(2,stepCard(3,'Signal 3: GitHub evidence','wait',`<span class="mut">searching for "${esc(name)}" in requirements.txt files...</span>`));
+    const s3=await api('/api/signal3',{name,eco:'pypi',token:tok()});
+    const hits=s3.live?s3.live.hits:(s3.saved?s3.saved.hits:null);
+    const src=s3.live?'live GitHub Code Search':(s3.saved?'saved result from our earlier run':'');
+    set(2,stepCard(3,'Signal 3: GitHub evidence',hits==null?'fail':'ok',hits==null?`Not assessed: ${esc(s3.error||'')} and the name is not among our 150 saved candidates. Signal dropped, not set to zero.`:`<b>${fmt(hits)}</b> files contain this name (${src})${hits>s3.noise_limit?' - above 5,000, so treated as a common word and ignored':''}.${s3.live&&s3.live.example_repo?'<br>Example: '+esc(s3.live.example_repo):''}`));
+    set(3,stepCard(4,'Combined score','wait','<span class="mut">calculating...</span>'));
+    const sc=await api('/api/score',{distance:t.distance,dependents:deps,hits:hits});
+    const f=x=>x==null?'unknown':x.toFixed(3);
+    set(3,stepCard(4,'Combined score','ok',`S1 = ${f(sc.s1)} &nbsp; S2 = ${f(sc.s2)} &nbsp; S3 = ${f(sc.s3)} &nbsp; (weights ${sc.weights.s1} / ${sc.weights.s2} / ${sc.weights.s3})<br>Score: <b class="big-n">${sc.score==null?'not scored':sc.score.toFixed(3)}</b> ${tag(sc.tier)}<br><span class="mut">Read it as "how much exposure if this were malicious", not "probability that it is malicious". Tiers are display-only, not calibrated.</span>`));
+    LAST.name=name;LAST.nearest=t.name;LAST.distance=t.distance;LAST.deps=deps;LAST.hits=hits;
+    set(4,stepCard(5,steps[4],'wait','<span class="mut">looking up...</span>'));
+    const gt=await api(`/api/ground_truth?name=${encodeURIComponent(name)}&eco=pypi`);
+    set(4,stepCard(5,'Ground truth: OpenSSF malicious-packages list','ok',gt.listed?`<span class="bad">"${esc(name)}" IS listed as a reported-malicious PyPI package.</span>`:`"${esc(name)}" is <b>not listed</b> (checked ${fmt(gt.checked)} known-malicious PyPI names). Not listed does not mean safe.`));
+  }catch(e){out.push(`<div class="err">${esc(e)}</div>`);draw();}
+  finally{busy(b,false);}
+}
+</script>
+</body>
+</html>
