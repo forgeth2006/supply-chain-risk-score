@@ -35,4 +35,24 @@ of adoption — is what makes this different.
 - Person B (Graph DB/Product): graph schema, blast radius, scoring formula, dashboard
 
 ## Status
-Signal 1, Signal 3, and Signal 2 all merged into main
+| Part | State |
+|---|---|
+| Signal 1, PyPI | Full registry (884,779 names) |
+| Signal 1, npm | 20,000-name sample; full run attempted and unresolved (cause uncertain) |
+| Signal 3 | GitHub Code Search on the 150 closest candidates, plus a one-week GH Archive scan |
+| Signal 2 | Neo4j forward-dependency graph built; reverse dependent counts for all 131 popular packages via `scoring/blast_radius_fetch.py` (ecosyste.ms) |
+| Combined score | `scoring/score.py`, design in `scoring/scoring_design.md` |
+| Validation | `scoring/validate_openssf.py` against OpenSSF malicious-packages: 6 of 70 npm candidates are known-malicious, but the combined score does not separate them from the rest (AUC 0.47; see report) |
+
+## Quick start
+```
+pip install -r scoring/requirements.txt
+python demo/typosquat_demo.py          # live demo, cell by cell in VS Code (see demo/DEMO_RUNBOOK.md)
+python scoring/blast_radius_fetch.py   # needs internet; writes data/blast_radius.csv
+python scoring/validate_openssf.py     # clones OpenSSF names (few seconds), writes data/validation_*
+python scoring/score.py                # writes data/final_scores.csv
+```
+
+## Where to read
+- `report/final_report.md` full write-up, `report/faculty_QA.md` likely questions
+- `registry_lsh/`, `gharchive_scan/`, `graph_db/`, `scoring/` design notes per component

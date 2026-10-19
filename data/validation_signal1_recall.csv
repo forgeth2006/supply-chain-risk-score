@@ -1,0 +1,5 @@
+distance_cutoff,malicious_flagged,malicious_total,malicious_flag_rate,popular_flag_rate_benign_proxy
+0.3,931,11817,0.0788,0.1681
+0.4,1519,11817,0.1285,0.3177
+0.5,2716,11817,0.2298,0.5434
+0.65,6198,11817,0.5245,0.8582

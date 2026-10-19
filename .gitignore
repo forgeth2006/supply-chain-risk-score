@@ -220,3 +220,5 @@ __marimo__/
 graph_db/dep_cache/
 
 *.parquet.zip
+# local caches created by scoring/validate_openssf.py (cloned ground-truth repo)
+scoring/.cache/
